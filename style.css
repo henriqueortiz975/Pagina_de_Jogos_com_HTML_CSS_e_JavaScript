@@ -1,0 +1,91 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background: radial-gradient(circle at left,#081c5a 0%,#030617 55%), linear-gradient(135deg,#020617,#090b1f);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+header{
+    width:100%;
+    min-height:70px;
+    padding:0 60px;
+    display:flex;
+    align-items:center;
+    background:rgba(0,0,0,.15);
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 0;
+}
+
+.Tag{
+    display: inline-block;
+    margin-left: 200px;
+    padding: 8px 16px;
+    margin-bottom: 40px;
+    border-radius: 999px;
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #93c5fd;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
+.PainelJogos{
+    gap: 32px;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.Jogo {
+    background-color: rgba(4, 20, 49, 0.85);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 24px;
+    padding: 32px;
+    width: 500px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    color: #93c5fd;
+}
+
+button{
+    background-color: rgba(0, 89, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 12px;
+    margin-top: 25px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    color: white;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+button:hover{
+    transform: scale(0.97);
+    transition: 1s;
+}
+
+footer{
+    width:100%;
+    min-height:50px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    background:rgba(0,0,0,.15);
+    font-size: 17px;
+}
