@@ -27,6 +27,7 @@ header{
     max-width: 1100px;
     margin: 0 auto;
     padding: 60px 0;
+    flex:1;
 }
 
 .Tag{
@@ -86,7 +87,8 @@ footer{
     min-height:50px;
     display:flex;
     align-items:center;
-    justify-content: center;
+    justify-content:center;
     background:rgba(0,0,0,.15);
-    font-size: 17px;
+    font-size:17px;
+    margin-top:auto;
 }
