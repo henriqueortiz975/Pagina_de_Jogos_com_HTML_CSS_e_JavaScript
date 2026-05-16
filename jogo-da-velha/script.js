@@ -97,3 +97,18 @@ const BotaoVoltar = document.querySelector(".Voltar");
 BotaoVoltar.addEventListener("click", function(){
     window.location.href = "../index.html";
 });
+
+const BotaoReiniciar = document.querySelector(".Reiniciar");
+
+BotaoReiniciar.addEventListener("click", function(){
+    blocos.forEach((bloco) => {
+        bloco.innerText = "";
+        bloco.style.fontSize = "0px";
+        bloco.style.fontWeight = "normal";
+        bloco.style.color = "black";
+    });
+
+    jogadorAtual = "X";
+    jogoAtivo = true;
+    tag.innerText = "Vez do 1º Jogador";
+});
