@@ -11,9 +11,9 @@ botoes.forEach(function(Botao){
             window.location.href = "jogo-da-velha/index.html";
         }else if(Botao.id === "3"){
             // Adcionar o Jogo de Adivinhação de Número
-            window.location.href = "";
+            window.location.href = "adivinhacao/index.html";
         }else if(Botao.id === "4"){
-            // Adcionar o Jogo de Adivinhação de Número
+            // Adcionar o Jogo de pedra, papel e tesoura
             window.location.href = "";       
         }else{
             // Alerta pra mim mesmo saber se funciona
