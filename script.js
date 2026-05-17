@@ -14,7 +14,7 @@ botoes.forEach(function(Botao){
             window.location.href = "adivinhacao/index.html";
         }else if(Botao.id === "4"){
             // Adcionar o Jogo de pedra, papel e tesoura
-            window.location.href = "";       
+            window.location.href = "pedra-papel-tesoura/index.html";       
         }else{
             // Alerta pra mim mesmo saber se funciona
             alert("Codigo esta errado animal");
