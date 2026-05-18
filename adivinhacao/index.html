@@ -13,6 +13,8 @@
 
         <div class = "BotoesTela">
 
+            <button class = "Modo">Modo: SinglePlayer</button>
+            <button class = "Dificuldade">Dificuldade: Média</button>
             <button class = "Reiniciar">Reiniciar</button>
             <button class = "Voltar">Voltar</button>
 
@@ -27,16 +29,28 @@
         </div>
 
         <section class = "JogoDeAdivinhacao">
+
+            <div class = "Caixa">
+
+                <div class = "Adivinhacao">
+
+                    <input class = "CaixaPalpite" type="number" id="EnviarPalpite"
+                     min="1" max="100" placeholder="Digite seu palpite aqui">
+                    <button class = "EnviarPalpite" id="palpite">Enviar Palpite</button>
+                    <p class = "Situacao" id="Situacao"></p>
+
+                </div>
             
-            <div class = "Adivinhacao">
+                <div class = "Adivinhacao"> 
 
-                <input class = "CaixaPalpite" type="number" id="EnviarPalpite"
-                min="1" max="100" placeholder="Digite seu palpite aqui">
-
-                <button class = "EnviarPalpite" id="palpite">Enviar Palpite</button>
-                <p class = "Situacao" id="Situacao"></p>
+                    <p class = "TituloTentativas">TENTATIVAS</p>
+                    <p class = "QuantidadeTentativas" id="QuantidadeTentativas">0</p>
+            
+                </div>
                 
-            </div> 
+            </div>
+            
+ 
 
         </section>
     </main>

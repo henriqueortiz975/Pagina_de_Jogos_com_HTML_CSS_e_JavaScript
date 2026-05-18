@@ -1,4 +1,3 @@
-// Para limpar ranking:
 // localStorage.clear();
 
 /* =========================
@@ -16,10 +15,19 @@ let pontos = 0;
 
 let podeClicar = false;
 
+let multiplayer = false;
+
+let jogadorAtual = 1;
+
+let pontosJogador1 = 0;
+let pontosJogador2 = 0;
+
 let ranking = {
+
     facil: [],
     medio: [],
     dificil: []
+
 };
 
 let nomeJogador = "";
@@ -28,7 +36,8 @@ let nomeJogador = "";
    ELEMENTOS
 ========================= */
 
-const telaLogin = document.querySelector(".TelaLogin");
+const telaLogin =
+document.querySelector(".TelaLogin");
 
 const inputNome =
 document.querySelector(".InputNome");
@@ -38,6 +47,9 @@ document.querySelector(".BotaoEntrar");
 
 const selecionarModo =
 document.querySelector(".SelecionarModo");
+
+const toggleMultiplayer =
+document.querySelector(".ToggleMultiplayer");
 
 const botaoIniciar =
 document.querySelector(".Iniciar");
@@ -51,17 +63,11 @@ document.querySelector(".Rodadas");
 const pontosSpan =
 document.querySelector(".Pontos");
 
+const recordeSpan =
+document.querySelector(".Recorde");
+
 const listaRank =
 document.querySelector(".ListaRank");
-
-const cardPontuacao =
-document.querySelector(".CardPontuacao");
-
-const cardComoJogar =
-document.querySelector(".Card2");
-
-const cardRank =
-document.querySelector(".CardRank");
 
 const telaDerrota =
 document.querySelector(".TelaDerrota");
@@ -81,11 +87,16 @@ document.querySelector(".BotaoVoltar");
 const mensagemCentro =
 document.querySelector(".MensagemCentro");
 
+const textoDerrota =
+document.querySelector(".TextoDerrota");
+
 /* =========================
    LOGIN
 ========================= */
 
-botaoEntrar.addEventListener("click", function(){
+botaoEntrar.addEventListener(
+"click",
+function(){
 
     const nome =
     inputNome.value.trim();
@@ -100,7 +111,11 @@ botaoEntrar.addEventListener("click", function(){
 
     nomeJogador = nome;
 
-    modo = selecionarModo.value;
+    modo =
+    selecionarModo.value;
+
+    multiplayer =
+    toggleMultiplayer.checked;
 
     if(modo == "facil"){
 
@@ -139,7 +154,10 @@ botaoEntrar.addEventListener("click", function(){
 
     atualizarRanking();
 
-    telaLogin.style.display = "none";
+    atualizarRecorde();
+
+    telaLogin.style.display =
+    "none";
 
 });
 
@@ -391,20 +409,6 @@ function mostrarCoresModo(){
 
 }
 
-/* =========================
-   RANKING
-========================= */
-
-const rankingSalvo =
-localStorage.getItem("ranking");
-
-if(rankingSalvo){
-
-    ranking =
-    JSON.parse(rankingSalvo);
-
-}
-
 function atualizarRanking(){
 
     listaRank.innerHTML = "";
@@ -421,7 +425,10 @@ function atualizarRanking(){
 
     }
 
-    rankingModo.forEach(function(jogador, indice){
+    rankingModo.forEach(function(
+        jogador,
+        indice
+    ){
 
         const item =
         document.createElement("li");
@@ -430,17 +437,14 @@ function atualizarRanking(){
         "#" + (indice + 1) +
         " 🎮 " +
         jogador.nome +
-        " — " +
-        jogador.pontos +
-        " pontos";
+        " - " +
+        jogador.pontos;
 
         listaRank.appendChild(item);
 
     });
 
 }
-
-atualizarRanking();
 
 function salvarPontuacao(){
 
@@ -465,7 +469,35 @@ function salvarPontuacao(){
         JSON.stringify(ranking)
     );
 
+    const recordeAtual =
+    localStorage.getItem(
+        "recorde_" + modo
+    ) || 0;
+
+    if(pontos > recordeAtual){
+
+        localStorage.setItem(
+            "recorde_" + modo,
+            pontos
+        );
+
+    }
+
     atualizarRanking();
+
+    atualizarRecorde();
+
+}
+
+function atualizarRecorde(){
+
+    const recorde =
+    localStorage.getItem(
+        "recorde_" + modo
+    ) || 0;
+
+    recordeSpan.innerText =
+    recorde;
 
 }
 
@@ -475,7 +507,8 @@ function salvarPontuacao(){
 
 function Centro(texto){
 
-    mensagemCentro.innerText = texto;
+    mensagemCentro.innerText =
+    texto;
 
 }
 
@@ -485,39 +518,50 @@ function Centro(texto){
 
 let rankAberto = false;
 
-botaoRank.addEventListener("click", function(){
+botaoRank.addEventListener(
+"click",
+function(){
+
+    const cardRank =
+    document.querySelector(".CardRank");
+
+    const card2 =
+    document.querySelector(".Card2");
+
+    const pontuacao =
+    document.querySelector(".CardPontuacao");
 
     if(rankAberto == false){
 
-        cardPontuacao.style.display =
-        "none";
-
-        cardComoJogar.style.display =
-        "none";
-
         cardRank.style.display =
         "block";
+
+        card2.style.display =
+        "none";
+
+        pontuacao.style.display =
+        "none";
+
+        rankAberto = true;
 
         botaoRank.innerText =
         "Voltar";
 
-        rankAberto = true;
-
     }else{
-
-        cardPontuacao.style.display =
-        "block";
-
-        cardComoJogar.style.display =
-        "block";
 
         cardRank.style.display =
         "none";
 
-        botaoRank.innerText =
-        "Rank";
+        card2.style.display =
+        "block";
+
+        pontuacao.style.display =
+        "block";
 
         rankAberto = false;
+
+        botaoRank.innerText =
+        "Rank";
 
     }
 
@@ -527,8 +571,7 @@ botaoRank.addEventListener("click", function(){
    INICIAR
 ========================= */
 
-botaoIniciar
-.addEventListener(
+botaoIniciar.addEventListener(
 "click",
 iniciarJogo
 );
@@ -540,6 +583,11 @@ function iniciarJogo(){
 
     rodada = 0;
     pontos = 0;
+
+    pontosJogador1 = 0;
+    pontosJogador2 = 0;
+
+    jogadorAtual = 1;
 
     atualizarPainel();
 
@@ -577,9 +625,23 @@ function mostrarSequencia(){
 
     podeClicar = false;
 
-    Centro("Observe...");
+    if(multiplayer){
 
-    sequencia.forEach(function(cor, indice){
+        Centro(
+            "Jogador " +
+            jogadorAtual
+        );
+
+    }else{
+
+        Centro("Observe...");
+
+    }
+
+    sequencia.forEach(function(
+        cor,
+        indice
+    ){
 
         setTimeout(function(){
 
@@ -603,7 +665,18 @@ function mostrarSequencia(){
    SOM
 ========================= */
 
-function tocarSom(){
+function tocarSom(cor){
+
+    const frequencias = {
+
+        Verde:261,
+        Vermelho:329,
+        Amarelo:392,
+        Azul:523,
+        Roxo:659,
+        Rosa:784
+
+    };
 
     const audioContext =
     new (
@@ -624,9 +697,7 @@ function tocarSom(){
     );
 
     oscillator.frequency.value =
-    440;
-
-    oscillator.type = "sine";
+    frequencias[cor];
 
     gainNode.gain.value = 0.08;
 
@@ -636,12 +707,12 @@ function tocarSom(){
 
         oscillator.stop();
 
-    }, 180);
+    },180);
 
 }
 
 /* =========================
-   ANIMAÇÃO
+   EFEITO
 ========================= */
 
 function piscarCor(cor){
@@ -649,7 +720,7 @@ function piscarCor(cor){
     const elemento =
     document.querySelector("." + cor);
 
-    tocarSom();
+    tocarSom(cor);
 
     elemento.style.filter =
     "brightness(2)";
@@ -665,7 +736,7 @@ function piscarCor(cor){
         elemento.style.transform =
         "scale(1)";
 
-    }, 500);
+    },500);
 
 }
 
@@ -733,9 +804,31 @@ function verificarJogada(){
 
         podeClicar = false;
 
-        pontos += 10;
+        if(multiplayer){
 
-        Centro("Boa!");
+            if(jogadorAtual == 1){
+
+                pontosJogador1 += 10;
+
+                jogadorAtual = 2;
+
+            }else{
+
+                pontosJogador2 += 10;
+
+                jogadorAtual = 1;
+
+            }
+
+            pontos =
+            pontosJogador1 +
+            pontosJogador2;
+
+        }else{
+
+            pontos += 10;
+
+        }
 
         atualizarPainel();
 
@@ -743,7 +836,7 @@ function verificarJogada(){
 
             proximaRodada();
 
-        }, 1000);
+        },1000);
 
     }
 
@@ -762,18 +855,51 @@ function perdeu(){
     rodadaFinal.innerText =
     rodada;
 
-    pontosFinais.innerText =
-    pontos;
+    if(multiplayer){
 
-    Centro("Você perdeu!");
+        if(
+            pontosJogador1 >
+            pontosJogador2
+        ){
+
+            textoDerrota.innerText =
+            "Jogador 1 venceu!";
+
+        }else if(
+            pontosJogador2 >
+            pontosJogador1
+        ){
+
+            textoDerrota.innerText =
+            "Jogador 2 venceu!";
+
+        }else{
+
+            textoDerrota.innerText =
+            "Empate!";
+
+        }
+
+        pontosFinais.innerText =
+        pontosJogador1 +
+        " x " +
+        pontosJogador2;
+
+    }else{
+
+        pontosFinais.innerText =
+        pontos;
+
+    }
+
+    Centro("Fim de jogo");
 
     telaDerrota.style.display =
     "flex";
 
 }
 
-botaoReiniciar
-.addEventListener(
+botaoReiniciar.addEventListener(
 "click",
 function(){
 
@@ -784,8 +910,7 @@ function(){
 
 });
 
-botaoVoltar
-.addEventListener(
+botaoVoltar.addEventListener(
 "click",
 function(){
 

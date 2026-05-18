@@ -22,11 +22,21 @@ body{
     margin-right: 10px;
 }
 
-.Voltar, .Reiniciar{
+.Dificuldade{
+    background-color: rgba(255, 217, 0, 0.85);
+    margin-right: 10px;
+}
+
+.Modo{
+    background-color: rgba(0, 255, 89, 0.85);
+    margin-right: 10px;
+}
+
+.Modo, .Dificuldade, .Reiniciar, .Voltar{
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
     padding: 12px;
-    width: 130px;
+    width: auto;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
     color: white;
     font-size: 16px;
@@ -34,7 +44,7 @@ body{
     font-weight: bold;
 }
 
-.Voltar:hover, .Reiniciar:hover{
+.Modo:hover, .Dificuldade:hover, .Reiniciar:hover, .Voltar:hover{
     transform: scale(1.1);
     transition: 300ms;
 }
@@ -82,8 +92,14 @@ header{
     justify-content: center;
 }
 
+.Caixa{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
 .Adivinhacao{
-    width: 530px;
+    width: 400px;
     min-height: 180px;
     display: flex;
     flex-direction: column;
@@ -95,6 +111,20 @@ header{
     border-radius: 24px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
     padding: 30px;
+}
+
+.TituloTentativas{
+    font-size: 48px;
+    font-weight: bold;
+    color: #93c5fd;
+    margin-bottom: 1px;
+}
+
+.QuantidadeTentativas{
+    font-size: 55px;
+    color: #5c187c;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .CaixaPalpite{
@@ -146,4 +176,84 @@ footer{
     background:rgba(0,0,0,.15);
     font-size:17px;
     margin-top:auto;
+}
+
+@media (max-width: 900px){
+
+    header{
+        padding:20px;
+        justify-content:center;
+    }
+
+    .Caixa{
+        grid-template-columns:1fr;
+    }
+
+    .Adivinhacao{
+        width:100%;
+        max-width:500px;
+    }
+
+    .TituloTentativas{
+        font-size:38px;
+    }
+
+    .QuantidadeTentativas{
+        font-size:45px;
+    }
+}
+
+@media (max-width: 600px){
+
+    header{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .Modo, .Dificuldade, .Reiniciar, .Voltar{
+        width:100%;
+        margin-right:0;
+        margin-top: 10px;
+    }
+
+    .container{
+        width:95%;
+        padding:30px 0;
+    }
+
+    .Tag{
+        font-size:16px;
+        text-align:center;
+    }
+
+    .Adivinhacao{
+        padding:20px;
+        border-radius:18px;
+    }
+
+    .TituloTentativas{
+        font-size:28px;
+    }
+
+    .QuantidadeTentativas{
+        font-size:38px;
+    }
+
+    .CaixaPalpite{
+        width:100%;
+        font-size:14px;
+    }
+
+    .EnviarPalpite{
+        width:100%;
+        font-size:14px;
+    }
+
+    .Situacao{
+        font-size:15px;
+    }
+
+    footer{
+        font-size:14px;
+    }
 }

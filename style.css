@@ -32,8 +32,8 @@ header{
 
 .Tag{
     display: inline-block;
-    margin-left: 200px;
     padding: 8px 16px;
+    flex-wrap: wrap;
     margin-bottom: 40px;
     border-radius: 999px;
     background-color: rgba(59, 130, 246, 0.15);
@@ -50,6 +50,7 @@ header{
     align-items: center;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    justify-items: center;
 }
 
 .Jogo {
@@ -57,7 +58,8 @@ header{
     border: 1px solid rgba(148, 163, 184, 0.2);
     border-radius: 24px;
     padding: 32px;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
     color: #93c5fd;
     margin-top: 25px;
@@ -91,4 +93,83 @@ footer{
     background:rgba(0,0,0,.15);
     font-size:17px;
     margin-top:auto;
+}
+
+@media (max-width: 900px){
+
+    header{
+        padding:20px;
+        justify-content:center;
+        text-align:center;
+    }
+
+    .PainelJogos{
+        grid-template-columns:1fr;
+    }
+
+    .Tag{
+        font-size:18px;
+        margin-bottom:30px;
+    }
+
+    .Jogo{
+        max-width:600px;
+    }
+}
+
+@media (max-width: 600px){
+
+    .container{
+        width:95%;
+        padding:30px 0;
+    }
+
+    .Tag{
+        width:100%;
+        font-size:16px;
+        padding:10px;
+    }
+
+    .PainelJogos{
+        gap:20px;
+    }
+
+    .Jogo{
+        padding:20px;
+        border-radius:18px;
+        margin-top:0;
+    }
+
+    .Jogo h2{
+        font-size:20px;
+    }
+
+    .Jogo p{
+        font-size:14px;
+        line-height:1.5;
+    }
+
+    .Botao{
+        font-size:14px;
+        padding:10px;
+    }
+
+    footer{
+        font-size:14px;
+    }
+}
+
+@media (max-width: 400px){
+
+    .Tag{
+        font-size:14px;
+    }
+
+    .Jogo{
+        padding:16px;
+    }
+
+    .Botao{
+        border-radius:18px;
+    }
 }

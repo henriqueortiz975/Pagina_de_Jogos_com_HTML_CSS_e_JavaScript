@@ -17,11 +17,21 @@ body{
     background-color: rgba(0, 89, 255, 0.85);
 }
 
-.Voltar{
+.Reiniciar{
+    background-color: red;
+    margin-right: 10px;
+}
+
+.Modo{
+    background-color: rgba(0, 255, 89, 0.85);
+    margin-right: 10px;
+}
+
+.Modo, .Reiniciar, .Voltar{
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
     padding: 12px;
-    width: 130px;
+    width: auto;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
     color: white;
     font-size: 16px;
@@ -29,7 +39,7 @@ body{
     font-weight: bold;
 }
 
-.Voltar:hover{
+.Modo:hover, .Reiniciar:hover, .Voltar:hover{
     transform: scale(1.1);
     transition: 300ms;
 }
@@ -133,4 +143,119 @@ footer{
     background:rgba(0,0,0,.15);
     font-size:17px;
     margin-top:auto;
+}
+
+.Placar{
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    background: rgba(59, 130, 246, 0.15);
+    padding: 12px;
+    border-radius: 16px;
+}
+
+.Ativo{
+    transform: scale(1.15);
+    transition: 0.2s;
+    background-color: #16a34a !important;
+}
+
+.Pedra:disabled, .Papel:disabled, .Tesoura:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 900px){
+
+    header{
+        padding:20px;
+        justify-content:center;
+    }
+
+    .PedraPapelTesoura{
+        width:100%;
+        max-width:600px;
+    }
+
+    .Pedra, .Papel, .Tesoura{
+        width:160px;
+    }
+
+    .Tag{
+        font-size:18px;
+        text-align:center;
+    }
+}
+
+@media (max-width: 600px){
+
+    header{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .Modo, .Reiniciar, .Voltar{
+        width:100%;
+        margin-right:0;
+        margin-top: 10px;
+    }
+
+    .container{
+        width:95%;
+        padding:30px 0;
+    }
+
+    .Tag{
+        font-size:16px;
+    }
+
+    .PedraPapelTesoura{
+        padding:20px;
+        border-radius:18px;
+    }
+
+    .BotoesJogada{
+        flex-direction:column;
+        width:100%;
+    }
+
+    .Pedra, .Papel, .Tesoura{
+        width:100%;
+        font-size:14px;
+    }
+
+    .Situacao, .Resultado{
+        font-size:15px;
+    }
+
+    .Placar{
+        font-size:18px;
+    }
+
+    footer{
+        font-size:14px;
+    }
+}
+
+@media (max-width: 400px){
+
+    .PedraPapelTesoura{
+        padding:16px;
+    }
+
+    .Tag{
+        font-size:14px;
+        padding:6px 12px;
+    }
+
+    .Placar{
+        font-size:16px;
+    }
+
+    .Pedra, .Papel, .Tesoura{
+        padding:10px;
+        border-radius:18px;
+    }
 }

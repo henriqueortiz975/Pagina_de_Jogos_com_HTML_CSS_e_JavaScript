@@ -1,40 +1,155 @@
 const BotaoVoltar = document.querySelector(".Voltar");
-let NumeroAleatorio = Math.floor(Math.random() * 100) + 1;
+const BotaoReiniciar = document.querySelector(".Reiniciar");
+const BotaoEnviarPalpite = document.querySelector(".EnviarPalpite");
+const BotaoDificuldade = document.querySelector(".Dificuldade");
+const BotaoModo = document.querySelector(".Modo");
 
-BotaoVoltar.addEventListener("click", function(){
+const CaixaPalpite = document.querySelector(".CaixaPalpite");
+const Situacao = document.querySelector("#Situacao");
+const QuantidadeTentativas = document.querySelector("#QuantidadeTentativas");
+const Tag = document.querySelector(".Tag");
+
+let tentativas = 0;
+let jogoAtivo = true;
+
+let dificuldadeAtual = "Média";
+let numeroMinimo = 1;
+let numeroMaximo = 100;
+
+let modoAtual = "SinglePlayer";
+let jogadorAtual = 1;
+
+let NumeroAleatorio = gerarNumero();
+
+function gerarNumero() {
+    return Math.floor(Math.random() * numeroMaximo) + numeroMinimo;
+}
+
+function reiniciarJogo() {
+
+    tentativas = 0;
+    jogoAtivo = true;
+
+    jogadorAtual = 1;
+
+    QuantidadeTentativas.textContent = tentativas;
+
+    NumeroAleatorio = gerarNumero();
+
+    CaixaPalpite.disabled = false;
+    BotaoEnviarPalpite.disabled = false;
+
+    CaixaPalpite.value = "";
+
+    Tag.textContent = `Digite um número entre ${numeroMinimo} e ${numeroMaximo}:`;
+
+    CaixaPalpite.min = numeroMinimo;
+    CaixaPalpite.max = numeroMaximo;
+
+    if(modoAtual === "Multiplayer"){
+        Situacao.textContent =
+        "👥 Multiplayer ativado! Jogador 1 começa.";
+    }else{
+        Situacao.textContent =
+        "🔄 Jogo reiniciado!";
+    }
+}
+
+BotaoDificuldade.addEventListener("click", function () {
+
+    if(dificuldadeAtual === "Fácil") {
+        dificuldadeAtual = "Média";
+        numeroMaximo = 100;
+    }else if(dificuldadeAtual === "Média") {
+        dificuldadeAtual = "Difícil";
+        numeroMaximo = 1000;
+    }else{
+        dificuldadeAtual = "Fácil";
+        numeroMaximo = 10;
+    }
+
+    numeroMinimo = 1;
+
+    BotaoDificuldade.textContent = `Dificuldade: ${dificuldadeAtual}`;
+
+    reiniciarJogo();
+});
+
+BotaoModo.addEventListener("click", function(){
+
+    if(modoAtual === "SinglePlayer"){
+        modoAtual = "Multiplayer";
+        BotaoModo.textContent = "Modo: Multiplayer";
+    }else{
+        modoAtual = "SinglePlayer";
+        BotaoModo.textContent =
+        "Modo: SinglePlayer";
+    }
+
+    reiniciarJogo();
+});
+
+BotaoVoltar.addEventListener("click", function () {
     window.location.href = "../index.html";
 });
 
-const BotaoReiniciar = document.querySelector(".Reiniciar");
-
-BotaoReiniciar.addEventListener("click", function(){
-    NumeroAleatorio = Math.floor(Math.random() * 100) + 1;
-
-    const Situacao = document.querySelector("#Situacao");
-    Situacao.textContent = "Jogo reiniciado!";
-
-    const CaixaPalpite = document.querySelector(".CaixaPalpite");
-    CaixaPalpite.value = "";
+BotaoReiniciar.addEventListener("click", function () {
+    reiniciarJogo();
 });
 
-const BotaoEnviarPalpite = document.querySelector(".EnviarPalpite");
+BotaoEnviarPalpite.addEventListener("click", function () {
 
-BotaoEnviarPalpite.addEventListener("click", function(){
-    const CaixaPalpite = document.querySelector(".CaixaPalpite");
+    if (!jogoAtivo) return;
+
     const Palpite = parseInt(CaixaPalpite.value);
-    const Situacao = document.querySelector("#Situacao");
 
-    if(Palpite < 1 || Palpite > 100 || isNaN(Palpite)){
-        Situacao.textContent = "Por favor, digite um número entre 1 e 100.";
-    }else if(Palpite < NumeroAleatorio){
-        Situacao.textContent = "O número é maior do que " + Palpite + ". Tente novamente!";
-    }else if(Palpite > NumeroAleatorio){
-        Situacao.textContent = "O número é menor do que " + Palpite + ". Tente novamente!";
+    if (isNaN(Palpite) || Palpite < numeroMinimo || Palpite > numeroMaximo){
+
+        Situacao.textContent = `⚠️ Digite um número entre ${numeroMinimo} e ${numeroMaximo}.`;
+
+        return;
+    }
+
+    tentativas++;
+
+    QuantidadeTentativas.textContent = tentativas;
+
+    if (Palpite < NumeroAleatorio) {
+        Situacao.textContent = `📈 O número é maior que ${Palpite}.`;
+    }else if(Palpite > NumeroAleatorio) {
+        Situacao.textContent = `📉 O número é menor que ${Palpite}.`;
     }else{
-        Situacao.textContent = "Parabéns! Você acertou o número " + NumeroAleatorio + "!";
-        NumeroAleatorio = Math.floor(Math.random() * 100) + 1;
+        if(modoAtual === "SinglePlayer"){
+            Situacao.textContent = `✅ Você acertou o número ${NumeroAleatorio} em ${tentativas} tentativas!`;
+        }else{
+            Situacao.textContent = `🏆 Jogador ${jogadorAtual} acertou o número ${NumeroAleatorio}!`;
+        }
+
+        jogoAtivo = false;
+
+        CaixaPalpite.disabled = true;
+        BotaoEnviarPalpite.disabled = true;
+    }
+
+    if(modoAtual === "Multiplayer" && jogoAtivo){
+
+        if(jogadorAtual === 1){
+            jogadorAtual = 2;
+        }else{
+            jogadorAtual = 1;
+        }
+
+        Situacao.textContent += ` Agora é a vez do Jogador ${jogadorAtual}.`;
     }
 
     CaixaPalpite.value = "";
+});
+
+CaixaPalpite.addEventListener("keydown", function (event) {
+
+    if (event.key === "Enter") {
+
+        BotaoEnviarPalpite.click();
+    }
 
 });
