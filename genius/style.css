@@ -121,6 +121,8 @@ body{
 
 }
 
+
+
 .Switch{
 
     position:relative;
@@ -186,19 +188,13 @@ body{
 /* HEADER */
 
 header{
-
     width:100%;
-
     min-height:70px;
-
     padding:0 60px;
-
     display:flex;
-    justify-content:space-between;
     align-items:center;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-
+    background:rgba(0,0,0,.15);
+    justify-content: space-between;
 }
 
 .logo span{
@@ -241,6 +237,10 @@ button{
 
     background:#3b82f6;
 
+}
+
+.Voltar{
+    background-color: rgba(0, 89, 255, 0.85);
 }
 
 /* CONTAINER */
@@ -392,8 +392,7 @@ button{
 
 }
 
-.Rodadas,
-.Recorde{
+.Rodadas, .Recorde{
 
     color:#4da3ff;
 
@@ -432,6 +431,10 @@ button{
 
     gap:14px;
 
+}
+
+h2{
+    margin-bottom: 10px;
 }
 
 .Explicacao{

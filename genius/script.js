@@ -91,6 +91,16 @@ const textoDerrota =
 document.querySelector(".TextoDerrota");
 
 /* =========================
+   VOLTAR
+========================= */
+
+const BotaoVoltar = document.querySelector(".Voltar");
+
+BotaoVoltar.addEventListener("click", function () {
+    window.location.href = "../index.html";
+});
+
+/* =========================
    LOGIN
 ========================= */
 
