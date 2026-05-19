@@ -17,7 +17,7 @@ botoes.forEach(function(Botao){
             window.location.href = "pedra-papel-tesoura/index.html";       
         }else{
             // Alerta pra mim mesmo saber se funciona
-            alert("Codigo esta errado animal");
+            alert("Codigo esta incorreto");
         }
     });
 });
