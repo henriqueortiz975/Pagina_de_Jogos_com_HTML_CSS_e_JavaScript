@@ -8,11 +8,15 @@
 </head>
 <body>
 
+    <!-- Cabeçalho -->
     <header>
+        <!-- Titulo -->
         <h1>✋ Jogo Pedra, Papel e Tesoura</h1>
 
+        <!-- Criação de uma div para colocar os botões -->
         <div class = "BotoesTela">
 
+            <!-- Os Botões -->
             <button class = "Modo">Modo: SinglePlayer</button>
             <button class = "Reiniciar">Reiniciar</button>
             <button class = "Voltar">Voltar</button>
@@ -21,33 +25,43 @@
 
     </header>
     
+    <!-- Meio da pagina -->
     <main class = "container">
 
         <div class = "Subtitulo">
             <p class = "Tag">Escolha sua jogada:</p>
         </div>
 
+        <!-- Section da criação do jogo, usado para organizar o css -->
         <section class = "JogoDePedraPapelTesoura">
-            
+
+            <!-- Uma box que vai ficar toda a informação do jogo da velha -->
             <div class = "PedraPapelTesoura">
 
+                <!-- Uma div para organizar os botões -->
                 <div class = "BotoesJogada">
+
+                    <!-- Botoes do jogo -->
                     <button class = "Pedra" id="Pedra">✊ Pedra</button>
                     <button class = "Papel" id="Papel">📄 Papel</button>
                     <button class = "Tesoura" id="Tesoura">✂️ Tesoura</button>
+
                 </div>
 
+                <!-- Diz o que cada um escolheu-->
                 <div class = "Situacao" id="Situacao"></div>
+
+                <!-- Mostra o resultado da partida-->
                 <div class = "Resultado" id="resultado"></div>
 
             </div> 
 
         </section>
+        
     </main>
 
-    <footer>
-        © 2026 Jogo Pedra, Papel e Tesoura. Desenvolvido para Programação Website I.
-    </footer>
+    <!-- rodapé -->
+    <footer>© 2026 Jogo Pedra, Papel e Tesoura. Desenvolvido para Programação Website I.</footer>
 
     <script src = "js/script.js"></script>
 
