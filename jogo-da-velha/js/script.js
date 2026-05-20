@@ -1,11 +1,17 @@
 const blocos = document.querySelectorAll(".bloco");
 const tag = document.querySelector(".Tag");
 
+const botaoModo = document.querySelector(".modo");
+const BotaoVoltar = document.querySelector(".Voltar");
+const BotaoReiniciar = document.querySelector(".Reiniciar");
+const BotaoRank = document.querySelector(".Rank");
+
 let jogadorAtual = "X";
 let jogoAtivo = true;
 let modoSinglePlayer = false;
 
-const botaoModo = document.querySelector(".modo");
+let nomeJogador1 = "";
+let nomeJogador2 = "";
 
 const Vitoria = [
     [1,2,3],
@@ -18,18 +24,33 @@ const Vitoria = [
     [3,5,7]
 ];
 
+PedirNomes();
+
+AtualizarTag();
+
 // ALTERAR MODO
 botaoModo.addEventListener("click", function(){
 
     modoSinglePlayer = !modoSinglePlayer;
 
     if(modoSinglePlayer){
+
         botaoModo.innerText = "Modo: Singleplayer";
+
     }else{
+
         botaoModo.innerText = "Modo: Multiplayer";
     }
 
+    PedirNomes();
+
     reiniciarJogo();
+
+});
+
+BotaoRank.addEventListener("click", function(){
+
+    window.location.href = "ranking.html";
 
 });
 
@@ -46,13 +67,18 @@ blocos.forEach((bloco) => {
         const venceu = verificarVitoria();
 
         if(venceu){
+
             finalizarJogo();
+
             return;
         }
 
         if(verificarEmpate()){
+
             tag.innerText = "Empate!";
+
             jogoAtivo = false;
+
             return;
         }
 
@@ -68,13 +94,18 @@ blocos.forEach((bloco) => {
                 const venceuMaquina = verificarVitoria();
 
                 if(venceuMaquina){
+
                     finalizarJogo();
+
                     return;
                 }
 
                 if(verificarEmpate()){
+
                     tag.innerText = "Empate!";
+
                     jogoAtivo = false;
+
                     return;
                 }
 
@@ -88,6 +119,25 @@ blocos.forEach((bloco) => {
 
 });
 
+function PedirNomes(){
+
+    nomeJogador1 = prompt("Digite o nome do Jogador 1:");
+
+    while(!nomeJogador1 || nomeJogador1.trim() === ""){
+        nomeJogador1 = prompt("Digite um nome válido:");
+    }
+
+    if(modoSinglePlayer){
+        nomeJogador2 = "Máquina";
+    }else{
+        nomeJogador2 = prompt("Digite o nome do Jogador 2:");
+
+        while(!nomeJogador2 || nomeJogador2.trim() === ""){
+            nomeJogador2 = prompt("Digite um nome válido:");
+        }
+    }
+}
+
 function jogar(bloco, jogador){
 
     bloco.innerText = jogador;
@@ -97,8 +147,7 @@ function jogar(bloco, jogador){
 
     if(jogador === "X"){
         bloco.style.color = "#0073ff";
-    }
-    else{
+    }else{
         bloco.style.color = "#ff0000";
     }
 
@@ -110,14 +159,14 @@ function trocarJogador(){
         jogadorAtual = "O";
 
         if(modoSinglePlayer){
-            tag.innerText = "Vez da Máquina";
+            tag.innerText = `Vez da Máquina`;
         }else{
-            tag.innerText = "Vez do 2º Jogador";
+            tag.innerText = `Vez de ${nomeJogador2}`;
         }
 
     }else{
         jogadorAtual = "X";
-        tag.innerText = "Vez do 1º Jogador";
+        tag.innerText = `Vez de ${nomeJogador1}`;
     }
 
 }
@@ -125,13 +174,15 @@ function trocarJogador(){
 function finalizarJogo(){
 
     if(jogadorAtual === "X"){
-        tag.innerText = "1º Jogador venceu! 🏆";
+        tag.innerText = `${nomeJogador1} venceu! 🏆`;
+        SalvarRank(nomeJogador1);
     }else{
 
         if(modoSinglePlayer){
             tag.innerText = "Máquina venceu! 🤖";
         }else{
-            tag.innerText = "2º Jogador venceu! 🏆";
+            tag.innerText = `${nomeJogador2} venceu! 🏆`;
+            SalvarRank(nomeJogador2);
         }
 
     }
@@ -172,12 +223,7 @@ function verificarVitoria(){
         const blocoB = document.getElementById(b);
         const blocoC = document.getElementById(c);
 
-        if(
-            blocoA.innerText !== "" &&
-            blocoA.innerText === blocoB.innerText &&
-            blocoB.innerText === blocoC.innerText
-        ){
-
+        if(blocoA.innerText !== "" && blocoA.innerText === blocoB.innerText && blocoB.innerText === blocoC.innerText){
             blocoA.style.backgroundColor = "#22c55e";
             blocoB.style.backgroundColor = "#22c55e";
             blocoC.style.backgroundColor = "#22c55e";
@@ -203,13 +249,9 @@ function verificarEmpate(){
     return true;
 }
 
-const BotaoVoltar = document.querySelector(".Voltar");
-
 BotaoVoltar.addEventListener("click", function(){
     window.location.href = "../index.html";
 });
-
-const BotaoReiniciar = document.querySelector(".Reiniciar");
 
 BotaoReiniciar.addEventListener("click", function(){
     reiniciarJogo();
@@ -228,10 +270,29 @@ function reiniciarJogo(){
         bloco.style.backgroundColor = "";
 
     });
-
     jogadorAtual = "X";
+
     jogoAtivo = true;
 
-    tag.innerText = "Vez do 1º Jogador";
+    AtualizarTag();
 
+}
+
+function AtualizarTag(){
+    tag.innerText = `Vez de ${nomeJogador1}`;
+}
+
+function SalvarRank(nome){
+
+    let ranking = JSON.parse(localStorage.getItem("RankingVelha")) || [];
+
+    const jogadorExistente = ranking.find(j => j.nome === nome);
+
+    if(jogadorExistente){
+        jogadorExistente.rank += 1;
+    }else{
+        ranking.push({nome: nome, rank: 1});
+    }
+
+    localStorage.setItem("RankingVelha", JSON.stringify(ranking));
 }

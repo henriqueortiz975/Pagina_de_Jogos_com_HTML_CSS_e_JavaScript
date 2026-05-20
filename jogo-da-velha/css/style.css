@@ -27,7 +27,12 @@ body{
     margin-right: 10px;
 }
 
-.Voltar, .Reiniciar, .modo{
+.Rank{
+    background-color: rgba(255, 89, 0, 0.85);
+    margin-right: 10px;
+}
+
+.Voltar, .Reiniciar, .modo, .Rank{
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
     padding: 12px;
@@ -39,7 +44,7 @@ body{
     font-weight: bold;
 }
 
-.Voltar:hover, .Reiniciar:hover, .modo:hover{
+.Voltar:hover, .Reiniciar:hover, .modo:hover, .Rank:hover{
     transform: scale(1.1);
     transition: 300ms;
 }
@@ -149,7 +154,7 @@ footer{
         text-align:center;
     }
 
-    .Voltar, .Reiniciar, .modo{
+    .Voltar, .Reiniciar, .modo, .Rank{
         width:100%;
         margin-right:0;
         margin-top: 10px;
